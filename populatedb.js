@@ -132,8 +132,8 @@ async function getData() {
 
   async function createCategories() {
     plantData.forEach((data) => {
-        if (!categories.includes(data.type.toLowerCase())) {
-            categories.push(data.type.charAt(0).toUpperCase() + data.type.slice(1));
+        if (!categories.includes(data.category.toLowerCase())) {
+            categories.push(data.category.charAt(0).toUpperCase() + data.type.slice(1));
         }
     })
     console.log("Adding categories");
