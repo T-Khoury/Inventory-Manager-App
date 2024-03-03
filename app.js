@@ -12,7 +12,7 @@ var app = express();
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://opq:CA7P2YTteDu9Lnqk@cluster0.6tseenm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = "mongodb+srv://opq:CA7P2YTteDu9Lnqk@cluster0.6tseenm.mongodb.net/inventory_manager_app?retryWrites=true&w=majority&appName=Cluster0";
 
 main().catch((err) => console.log(err));
 async function main() {

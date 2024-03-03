@@ -1,11 +1,7 @@
 #! /usr/bin/env node
 const fs = require('fs');
 
-// console.log(
-//     'This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb "mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority"'
-//   );
-  
-  // Get arguments passed on command line
+
   const userArgs = process.argv.slice(2);
   
   const Item = require("./models/item");
@@ -13,6 +9,9 @@ const fs = require('fs');
   
   const items = [];
   const categories = [];
+
+  const itemsData = [];
+  const categoriesData = [];
 
   let plantData;
 
@@ -27,7 +26,9 @@ const fs = require('fs');
     return `$${Math.floor(Math.random() * 100)}.99`
   }
 
-
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   function readData() {
     fs.readFile('./plantdata.txt', 'utf8', (err, data) => {
@@ -35,25 +36,14 @@ const fs = require('fs');
         console.log(JSON.parse(data));
     })
   }
-  
+
   const mongoose = require("mongoose");
+const category = require('./models/category');
   mongoose.set("strictQuery", false);
   
   const mongoDB = userArgs[0];
   
   main().catch((err) => console.log(err));
-  
-//   async function main() {
-//     console.log("Debug: About to connect");
-//     await mongoose.connect(mongoDB);
-//     console.log("Debug: Should be connected?");
-//     await createGenres();
-//     await createAuthors();
-//     await createBooks();
-//     await createBookInstances();
-//     console.log("Debug: Closing mongoose");
-//     mongoose.connection.close();
-//   }
 
   async function main() {
     await getData();
@@ -61,56 +51,47 @@ const fs = require('fs');
     await mongoose.connect(mongoDB);
     console.log("Debug: Should be connected?");
     await createCategories();
+    console.log('in between');
     await createItems();
     console.log("Debug: Closing mongoose");
     mongoose.connection.close();
   }
+
+  async function categoryFind(itemCategory) {
+    let categoryName = capitalize(itemCategory);
+    const categoryMatch = await category.findOne({ name: `${categoryName}` }).exec();
+    console.log(categoryMatch);
+    return categoryMatch;
+  }
   
-  // We pass the index to the ...Create functions so that, for example,
-  // genre[0] will always be the Fantasy genre, regardless of the order
-  // in which the elements of promise.all's argument complete.
+  
   async function itemCreate(index, name, description, category, price, stock, images) {
-    const itemdetail = { name: name, description: description, category: category, price: price, stock: stock };
+    let categoryMatch = await categoryFind(category);
+    console.log('here');
+    const itemdetail = { name: capitalize(name), description: description, category: categoryMatch._id, price: price, stock: stock, images: images };
 
     const item = new Item(itemdetail);
-
+    console.log(item);
     await item.save();
-    // items[index] = item;
+    items[index] = item;
     console.log(`Added item: ${name} ${description} ${category} ${price} ${stock}`);
   }
 
   async function categoryCreate(index, name, description) {
+    console.log(index, name, description);
     const categorydetail = { name: name, description: description };
 
     const category = new Category(categorydetail);
-
+    console.log(category);
     await category.save();
+    console.log(category, 'jjj');
+    categories[index] = category;
     console.log(`Added category: ${name} ${description}`);
   }
 
-  
-//   async function createGenres() {
-//     console.log("Adding genres");
-//     await Promise.all([
-//       genreCreate(0, "Fantasy"),
-//       genreCreate(1, "Science Fiction"),
-//       genreCreate(2, "French Poetry"),
-//     ]);
-//   }
-  
-//   async function createAuthors() {
-//     console.log("Adding authors");
-//     await Promise.all([
-//       authorCreate(0, "Patrick", "Rothfuss", "1973-06-06", false),
-//       authorCreate(1, "Ben", "Bova", "1932-11-8", false),
-//       authorCreate(2, "Isaac", "Asimov", "1920-01-02", "1992-04-06"),
-//       authorCreate(3, "Bob", "Billings", false, false),
-//       authorCreate(4, "Jim", "Jones", "1971-12-16", false),
-//     ]);
-//   }
 
 async function getData() {
-    let arrayofNums = randomInts(1, 1000);
+    let arrayofNums = randomInts(30, 1000);
     let urls = arrayofNums.map((num) => `https://perenual.com/api/species/details/${num}?key=sk-wlgJ65df6395685114381`);
 
     plantData = await Promise.all(
@@ -125,33 +106,32 @@ async function getData() {
         if (err) {
             throw new Error('Something went wrong.')
         }})
-
-
+    
+    plantData.forEach((data) => {
+        if (!categoriesData.includes(capitalize(data.category.toLowerCase()))) {
+            categoriesData.push(capitalize(data.category));
+        }
+    })
+    plantData.forEach((data) => {
+        itemsData.push(data);
+    })
     return plantData
   }
 
   async function createCategories() {
-    plantData.forEach((data) => {
-        if (!categories.includes(data.category.toLowerCase())) {
-            categories.push(data.category.charAt(0).toUpperCase() + data.type.slice(1));
-        }
-    })
-    console.log("Adding categories");
     await Promise.all(
-       categories.forEach((category) => {
-        categoryCreate(categories.indexOf(category), category, 'no description yet')
+       categoriesData.map(async (category) => {
+        await categoryCreate(categoriesData.indexOf(category), category, 'no description yet')
        }) 
     )
+    
   }
 
   async function createItems() {
-
-    plantData.forEach((data) => {
-        items.push(data);
-    })
+    console.log("Adding items");
     await Promise.all(
-        items.forEach((item) => {
-            itemCreate(items.indexOf(item), item.name, item.description, item.category, item.price, item.stock, item.images)
+        itemsData.map(async (item) => {
+            await itemCreate(itemsData.indexOf(item), item.name, item.description, item.category, item.price, item.stock, item.images)
         })
     )
   }
