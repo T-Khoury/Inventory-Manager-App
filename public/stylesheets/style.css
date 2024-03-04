@@ -1,3 +1,9 @@
+@counter-style plants {
+  system: cyclic;
+  symbols: 🌱;
+  suffix: " ";
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -5,4 +11,8 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+.test {
+  list-style: plants;
 }
