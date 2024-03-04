@@ -2,9 +2,6 @@ const Item = require("../models/item");
 const asyncHandler = require("express-async-handler");
 
 
-exports.index = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Site Home Page")
-})
 
 // Display list of all itemss
 exports.item_list = asyncHandler(async (req, res, next) => {
@@ -27,7 +24,7 @@ exports.item_create_post = [
     body()
 ]
 
-exports.citem_delete_get = asyncHandler(async (req, res, next) => {
+exports.item_delete_get = asyncHandler(async (req, res, next) => {
     res.render("item_delete", {
         title: "Delete Item"
     })

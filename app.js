@@ -6,13 +6,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const inventoryRouter = require("./routers/inventory")
 
 var app = express();
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://opq:CA7P2YTteDu9Lnqk@cluster0.6tseenm.mongodb.net/inventory_manager_app?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = "mongodb+srv://opq:CA7P2YTteDu9Lnqk@cluster0.6tseenm.mongodb.net/inventory_items?retryWrites=true&w=majority&appName=Cluster0";
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/inventory", inventoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

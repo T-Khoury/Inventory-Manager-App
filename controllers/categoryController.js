@@ -2,6 +2,9 @@ const Category = require("../models/category");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+exports.index = asyncHandler(async (req, res, next) => {
+    res.send("NOT IMPLEMENTED: Site Home Page")
+})
 
 // Display list of all categories
 exports.category_list = asyncHandler(async (req, res, next) => {
