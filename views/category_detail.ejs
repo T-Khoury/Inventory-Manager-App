@@ -15,7 +15,7 @@
                       <div class="item-card">
                         <div class="card-image">
                             <% if (item.images !== null) { %>
-                             <img src="<%= item.images[0].thumbnail %>" alt="Plant picture" onerr="/images/image.svg">
+                             <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
                             <% } else { %>
                                 <img class="default-image" src="/images/image.svg">
                             <% } %>
