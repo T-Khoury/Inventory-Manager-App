@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="category-detail content">
+            <div class="detail-top">
+                <h2>Category: <%= category.name %></h2>
+                <p><%= category.description %></p>
+            </div>
+            <div class="category-items-container">
+                <% if (category_items.length > 0) { %>
+                 <% category_items.forEach(item => { %>
+                  <a href="<%= item.url %>">
+                      <div class="item-card">
+                        <div class="card-image">
+                            <% if (item.images !== null) { %>
+                             <img src="<%= item.images[0].thumbnail %>" alt="Plant picture" onerr="/images/image.svg">
+                            <% } else { %>
+                                <img class="default-image" src="/images/image.svg">
+                            <% } %>
+                        </div>
+                        <div class="card-details">
+                            <h3 class="card-name"><%= item.name %></h3>
+                            <div class="stock-and-price">
+                                <div class="stock">
+                                    <img src="/images/package.svg">
+                                    <p><%= item.stock %></p>
+                                </div>
+                                <div class="price">
+                                    <img src="/images/dollar-sign.svg">
+                                    <p><%= item.price %></p>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </a>
+                 <% }) %>
+                <% } else { %>
+                    <p>There are no items to display</p>
+                <% } %>
+            </div>
+
+        </div>
+    </body>
+</html>

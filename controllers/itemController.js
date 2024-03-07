@@ -20,21 +20,21 @@ exports.item_create_get = (req, res, next) => {
 }
 
 
-exports.item_create_post = [
-    body()
-]
+// exports.item_create_post = [
+//     body()
+// ]
 
-exports.item_delete_get = asyncHandler(async (req, res, next) => {
-    res.render("item_delete", {
-        title: "Delete Item"
-    })
-});
+// exports.item_delete_get = asyncHandler(async (req, res, next) => {
+//     res.render("item_delete", {
+//         title: "Delete Item"
+//     })
+// });
 
-exports.item_delete_post = asyncHandler(async (req, res, next) => {
-    res.render("item_delete", {
-        title: "Delete Item"
-    })
-});
+// exports.item_delete_post = asyncHandler(async (req, res, next) => {
+//     res.render("item_delete", {
+//         title: "Delete Item"
+//     })
+// });
 
 exports.item_update_get = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED");

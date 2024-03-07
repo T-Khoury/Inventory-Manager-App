@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <%- include('./partials/nav.ejs') %>
+    <div class="categories content">
+      <h2>All Categories</h2>
+
+      <div>
+        <% if (categories.length > 0) { %>
+          <ul class="categories-list">
+            <% categories.forEach(category => { %>
+              <li>
+                <a href="<%= category.url %>">
+                  <h3 class="category-title"><%= category.name %></h3>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>There are no categories to display</p>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>
