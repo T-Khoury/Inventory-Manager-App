@@ -1,24 +1,11 @@
 const Category = require("../models/category");
 const Item = require("../models/item");
 const asyncHandler = require("express-async-handler");
-// const { body, validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 
-// exports.index = asyncHandler(async (req, res, next) => {
-//     // res.send("NOT IMPLEMENTED: Site Home Page")
-//     const [
-//         numCategories,
-//         numItems
-//     ] = await Promise.all([
-//         Category.countDocuments({}).exec(),
-//         Item.countDocuments({}).exec(),
-//     ])
-
-//     res.render("index", {
-//         title: "Plant Manager Home",
-//         category_count: numCategories,
-//         item_count: numItems,
-//     })
-// })
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // Display list of all categories
 exports.category_list = asyncHandler(async (req, res, next) => {
@@ -52,13 +39,44 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 // Display category create form on GET.
 exports.category_create_get = (req, res, next) => {
     // res.render("category_form", { title: "Create Category" });
-    res.send("NOT IMPLEMENTED: Category create form");
+    res.render("category_form", { title: "Create Category" });
 }
 
 
-// exports.category_create_post = [
-//     body()
-// ]
+exports.category_create_post = [
+    body("name", "Category name must contain at least 3 characters")
+        .trim()
+        .isLength({ min: 3 })
+        .escape(),
+    body("description")
+        .trim()
+        .isLength({ min: 1, max: 100 })
+        .escape(),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        const category = new Category({ name: req.body.name, description: req.body.description });
+
+        if (!errors.isEmpty()) {
+            res.render("category_form", {
+                title: "Create Category",
+                category: category,
+                errors: errors.array(),
+            });
+            return;
+        } else {
+            let categoryName = capitalize(req.body.name);
+            const categoryExists = await Category.findOne({ name: categoryName }).exec();
+            if (categoryExists) {
+                res.redirect(categoryExists.url);
+            } else {
+                await category.save();
+                res.redirect(category.url);
+            }
+        }
+    }),
+];
 
 // exports.category_delete_get = asyncHandler(async (req, res, next) => {
 //     res.render("category_delete", {

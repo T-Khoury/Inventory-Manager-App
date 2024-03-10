@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="item-detail content">
+            <div class="item-details">
+                <h1><%= item.name %></h1>
+                <p><b>Description:</b><%= item.description %></p>
+                <div class="quantity-and-price">
+                    <p><b>Quantity:</b><%= item.stock %></p>
+                    <p><b>Price:</b><%= item.price%></p>
+                </div>
+            </div>
+            <div class="item-image">
+                <% if (item.images !== null && item.images[0].medium_url) { %>
+                    <img src="<%= item.images[0].medium_url %>" alt="Plant picture" onerr="/images/image.svg">
+                <% } else if (item.images !==null) { %>
+                    <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
+                <% } %>
+            </div>
+            
+        </div>
+    </body>
+</html>

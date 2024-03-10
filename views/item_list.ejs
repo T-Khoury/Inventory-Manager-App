@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="items content">
+      <h2>All Items</h2>
+      <div class="all-items-container">
+        <% if (items.length > 0) { %>
+            <% items.forEach(item => { %>
+             <a href="<%= item.url %>">
+                 <div class="item-card">
+                   <div class="card-image">
+                       <% if (item.images !== null) { %>
+                        <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
+                       <% } else { %>
+                           <img class="default-image" src="/images/image.svg">
+                       <% } %>
+                   </div>
+                   <div class="card-details">
+                       <h3 class="card-name"><%= item.name %></h3>
+                       <div class="stock-and-price">
+                           <div class="stock">
+                               <img src="/images/package.svg">
+                               <p><%= item.stock %></p>
+                           </div>
+                           <div class="price">
+                               <img src="/images/dollar-sign.svg">
+                               <p><%= item.price %></p>
+                           </div>
+                       </div>
+                   </div>
+                 </div>
+             </a>
+            <% }) %>
+        <% } else { %>
+            <p>There are no items to display</p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
