@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="delete-item-top">
+            <h1><%= title %>:<%= item.name %></h1>
+            <p><strong>Description:</strong><%= item.description %></p>
+            <p><strong>Category:</strong><a href="<%= item.category.url %>"></a><%= item.category.name %></p>
+            <p><strong>Price:</strong><%= item.price %></p>
+            <p><strong>Stock:</strong><%= item.stock %></p>
+        </div>
+        <div class="item-image">
+            <% if (item.images !== null && item.images[0].medium_url) { %>
+                <img src="<%= item.images[0].medium_url %>" alt="Plant picture" onerr="/images/image.svg">
+            <% } else if (item.images !==null) { %>
+                <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
+            <% } %>
+        </div>
+        <div class="delete-category-bottom">
+             
+                <p>Do you really want to delete this Category?</p>
+
+                <form method="POST">
+                    <div class="form-group">
+                        <input id="itemid" name="itemid" type="hidden" value="<%= item._id %>">
+                    </div>
+                    <button type="submit">Delete</button>
+                </form>
+        </div>
+    </body>
+</html>

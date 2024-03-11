@@ -11,11 +11,14 @@
                     <p><b>Quantity:</b><%= item.stock %></p>
                     <p><b>Price:</b><%= item.price%></p>
                 </div>
+                <hr>
+                <p><a href="<%= item.url %>/delete">Delete item</a></p>
+                <p><a href="<%= item.url %>/update">Update item</a></p>
             </div>
             <div class="item-image">
-                <% if (item.images !== null && item.images[0].medium_url) { %>
+                <% if (item.images.length > 0 && item.images[0].medium_url) { %>
                     <img src="<%= item.images[0].medium_url %>" alt="Plant picture" onerr="/images/image.svg">
-                <% } else if (item.images !==null) { %>
+                <% } else if (item.images.length > 0) { %>
                     <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
                 <% } %>
             </div>

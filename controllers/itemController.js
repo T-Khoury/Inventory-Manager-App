@@ -97,22 +97,92 @@ exports.item_create_post = [
 
 ];
 
-// exports.item_delete_get = asyncHandler(async (req, res, next) => {
-//     res.render("item_delete", {
-//         title: "Delete Item"
-//     })
-// });
+exports.item_delete_get = asyncHandler(async (req, res, next) => {
+    const item = await Item.findById(req.params.id).exec();
 
-// exports.item_delete_post = asyncHandler(async (req, res, next) => {
-//     res.render("item_delete", {
-//         title: "Delete Item"
-//     })
-// });
+    if (item === null) {
+        res.redirect("/inventory/items");
+    }
+    res.render("item_delete", {
+        title: "Delete Item",
+        item: item,
+    });
+});
+
+exports.item_delete_post = asyncHandler(async (req, res, next) => {
+    await Item.findByIdAndDelete(req.body.id);
+    res.redirect("/inventory/items");
+});
 
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED");
+    const [item, allCategories] = await Promise.all([
+        Item.findById(req.params.id).exec(),
+        Category.find().sort({ name: 1 }).exec(),
+    ]);
+
+    if (item === null) {
+        const err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+    }
+    res.render("item_form", {
+        title: "Update Item",
+        categories: allCategories,
+        item: item,
+    });
 })
 
-exports.item_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED");
-})
+exports.item_update_post = [
+    body("name", "Name must not be empty.")
+        .trim()
+        .isLength({ min: 1, max: 100 })
+        .escape(),
+    body("description", "Description must not be empty.")
+        .trim()
+        .isLength({ min: 1, max: 1000 })
+        .escape(),
+    body("category", "Category must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("price", "Price must not be empty.")
+        .trim()
+        .isFloat({ min: 0.00, max: 99.99 })
+        .escape(),
+    body("stock", "Stock must not be empty.")
+        .trim()
+        .isInt({ min: 0 })
+        .escape(),
+
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+        const original = await Item.findById(req.params.id).exec();
+        originalImages = original.images
+        const item = new Item({
+            name: capitalize(req.body.name), 
+            description: req.body.description,
+            category: req.body.category,
+            price: `$${req.body.price}`,
+            stock: req.body.stock,
+            images: originalImages,
+            _id: req.params.id,
+        });
+
+        if (!errors.isEmpty()) {
+
+            const allCategories = await Category.find().sort({ name: 1 }).exec();
+
+            res.render("item_form", {
+                title: "Create Item",
+                item: item,
+                categories: allCategories,
+                errors: errors.array(),
+            });
+            return;
+        } else {
+            const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {});
+
+            res.redirect(updatedItem.url);
+        }
+    })
+]

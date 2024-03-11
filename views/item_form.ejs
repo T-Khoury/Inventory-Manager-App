@@ -44,7 +44,7 @@
                 <% if (typeof item == 'object' && item) { %>
                   <div class="form-group">
                     <label for="price">Price:</label>
-                    <input id="price" class="form-control" type="text" inputmode="decimal" placeholder="Enter price in US Dollars" name="price" required value="<%= !item ? '' : item.price %>">
+                    <input id="price" class="form-control" type="text" inputmode="decimal" placeholder="Enter price in US Dollars" name="price" required value="<%= !item ? '' : item.price.slice(1) %>">
                   </div>
                   <div class="form-group">
                       <label for="stock">Stock:</label>
@@ -60,7 +60,7 @@
                       <input id="stock" class="form-control" type="number" placeholder="Enter stock" name="stock" required value="">
                   </div>
                 <% } %>
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <button type="submit">Submit</button>
               </form>
               <% if (typeof errors == 'object' && errors) { %>
                 <ul>

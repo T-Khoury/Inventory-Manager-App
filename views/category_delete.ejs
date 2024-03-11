@@ -3,9 +3,34 @@
     <%- include('./partials/head.ejs') %>
     <body>
         <%- include('./partials/nav.ejs') %>
-        <div class="delete-category">
+        <div class="delete-category-top">
             <h1><%= title %>:<%= category.name %></h1>
             <p><%= category.description %></p>
+        </div>
+        <div class="delete-category-bottom">
+            <% if (category_items.length) { %>
+             <p><strong>Delete the following itemss before attempting to delete this category.</strong></p>
+             <div>
+                <h4>Items</h4>
+                <dl>
+                    <% category_items.forEach(item => { %>
+                     <dt>
+                        <a href="<%= item.url %>"><%= item.name %></a>
+                     </dt>
+                     <dd><%= item.description %></dd>
+                    <% }) %>
+                </dl>
+             </div>
+            <% } else { %>
+                <p>Do you really want to delete this Category?</p>
+
+                <form method="POST">
+                    <div class="form-group">
+                        <input id="categoryid" name="categoryid" type="hidden" value="<%= category._id %>">
+                    </div>
+                    <button type="submit">Delete</button>
+                </form>
+            <% } %>
         </div>
     </body>
 </html>
