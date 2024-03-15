@@ -4,6 +4,16 @@
   suffix: " ";
 }
 
+@font-face {
+  font-family: MadimiOne-Regular;
+  src: url(../fonts/MadimiOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: NotoSans-Regular;
+  src: url(../fonts/NotoSans-Regular.ttf);
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
