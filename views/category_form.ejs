@@ -4,13 +4,23 @@
     <body>
         <%- include('./partials/nav.ejs') %>
         <div class="create-category">
-            <form method="POST">
-                <label for="name">Category name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="description">Category description:</label>
-                <input type="text" id="description" name="description" required>
-                <button type="submit">Submit</button>
-            </form>
+            <% if (typeof category == 'object' && category) { %>
+                <form method="POST">
+                    <label for="name">Category name:</label>
+                    <input type="text" id="name" name="name" value="<%= category.name %>"required>
+                    <label for="description">Category description:</label>
+                    <input type="text" id="description" name="description" value="<%= category.description %>" required>
+                    <button type="submit">Submit</button>
+                </form>
+            <% } else { %>
+                <form method="POST">
+                    <label for="name">Category name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="description">Category description:</label>
+                    <input type="text" id="description" name="description" required>
+                    <button type="submit">Submit</button>
+                </form>
+            <% } %>
         </div>
     </body>
 </html>
