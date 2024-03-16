@@ -16,11 +16,15 @@
                 <p><a href="<%= item.url %>/update">Update item</a></p>
             </div>
             <div class="item-image">
-                <% if (item.images.length > 0 && item.images[0].medium_url) { %>
-                    <img src="<%= item.images[0].medium_url %>" alt="Plant picture" onerr="/images/image.svg">
-                <% } else if (item.images.length > 0) { %>
-                    <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
-                <% } %>
+                <% if (item.images) { %>
+                    <% if (item.images.length > 0 && item.images[0].medium_url) { %>
+                        <img src="<%= item.images[0].medium_url %>" alt="Plant picture" onerr="/images/image.svg">
+                    <% } else if (item.images.length > 0) { %>
+                        <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
+                    <% } %>
+                <% } else { %>
+                    <img src="/images/image.svg" alt="">
+                <% } %> 
             </div>
             
         </div>

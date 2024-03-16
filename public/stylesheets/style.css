@@ -15,21 +15,27 @@
 }
 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 35px 35px 35px 15px;
+  font-family: NotoSans-Regular, "Lucida Grande", Helvetica, Arial, sans-serif;
   max-width: 100%;
-  height: 100vh;
   margin: 0px;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
     "side-nav main";
   background-color: #e9f5db;
+  color: #325832;
 }
 
 a {
-  color: #00B7FF;
+  /* color: #00B7FF; */
+  color: #325832;
   text-decoration: none;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin: 0;
 }
 
 .card-details {
@@ -49,6 +55,10 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.card-name {
+  font-size: 1rem;
 }
 
 
@@ -106,12 +116,21 @@ a {
   width: 184px;
 }
 
+.nav-menu > li {
+  margin: 1rem;
+  font-size: 1.1rem;
+}
 .quantity-and-price {
   display: flex;
   gap: 10px;
 }
 .side-nav {
   grid-area: side-nav;
+  margin-right: 1rem;
+}
+
+.site-title {
+  font-family: MadimiOne-Regular, sans-serif;
 }
 
 .stock-and-price, .stock, .price {
