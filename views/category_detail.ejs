@@ -14,7 +14,7 @@
                   <a href="<%= item.url %>">
                       <div class="item-card">
                         <div class="card-image">
-                            <% if (item.images.length > 0) { %>
+                            <% if (item.images !== null && item.images.length > 0) { %>
                              <img src="<%= item.images[0].original_url %>" alt="Plant picture" onerr="/images/image.svg">
                             <% } else { %>
                                 <img class="default-image" src="/images/image.svg">
