@@ -15,7 +15,7 @@
 }
 
 body {
-  padding: 35px 35px 35px 15px;
+  padding: 35px;
   font-family: NotoSans-Regular, "Lucida Grande", Helvetica, Arial, sans-serif;
   max-width: 100%;
   margin: 0px;
@@ -43,6 +43,8 @@ h1 {
   justify-content: space-between;
   align-items: center;
   height: 20%;
+  padding: 10px 6px 10px 10px;
+  box-sizing: border-box;
 }
 
 .card-image {
@@ -58,7 +60,8 @@ h1 {
 }
 
 .card-name {
-  font-size: 1rem;
+  font-size: .9rem;
+  margin: 0;
 }
 
 
@@ -70,6 +73,7 @@ h1 {
 
 .category-items-container > a, .all-items-container > a {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-radius: 10px;
 }
 
 .categories-list {
@@ -85,6 +89,7 @@ h1 {
   flex-direction: column;
   height: 300px;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .item-detail {
@@ -117,7 +122,7 @@ h1 {
 }
 
 .nav-menu > li {
-  margin: 1rem;
+  margin: 1rem 0 1rem 10px;
   font-size: 1.1rem;
 }
 .quantity-and-price {
@@ -126,13 +131,30 @@ h1 {
 }
 .side-nav {
   grid-area: side-nav;
-  margin-right: 1rem;
+  margin-right: 3rem;
 }
 
 .site-title {
   font-family: MadimiOne-Regular, sans-serif;
 }
 
-.stock-and-price, .stock, .price {
+.stock-and-price {
   display: flex;
+  scale: 0.9;
+  height: 100%;
+  align-items: end;
+  flex-direction: column;
+}
+
+.stock-and-price p {
+  margin: 0;
+}
+
+.stock, .price {
+  display: flex;
+  align-items: center;
+}
+
+.stock img, .price img {
+  scale: 0.75;
 }
