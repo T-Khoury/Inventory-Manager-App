@@ -133,13 +133,13 @@ exports.category_update_post = [
         .escape(),
     body("description")
         .trim()
-        .isLength({ min: 1, max: 100 })
+        .isLength({ min: 1, max: 1000 })
         .escape(),
     
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
 
-        const category = new Category({ name: capitalize(req.body.name), description: req.body.description });
+        const category = new Category({ name: capitalize(req.body.name), description: req.body.description, _id: req.params.id });
 
         if (!errors.isEmpty()) {
             res.render("category_form", {
@@ -149,7 +149,7 @@ exports.category_update_post = [
             });
             return;
         } else {
-            await Category.findByIdAndUpdate(req.params.id, category);
+            await Category.findByIdAndUpdate(req.params.id, category, {});
             res.redirect(category.url);
         }
     }),
