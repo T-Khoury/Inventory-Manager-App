@@ -12,8 +12,8 @@
                     <p><b>Price:</b><%= item.price%></p>
                 </div>
                 <hr>
-                <p><a href="<%= item.url %>/delete">Delete item</a></p>
-                <p><a href="<%= item.url %>/update">Update item</a></p>
+                <a href="<%= item.url %>/delete"><button>Delete item</button></a>
+                <a href="<%= item.url %>/update"><button>Update item</button></a>
             </div>
             <div class="item-image">
                 <% if (item.images) { %>
