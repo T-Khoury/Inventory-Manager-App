@@ -85,6 +85,23 @@ h1 {
   width: 200px;
 }
 
+.delete-update-button {
+  background-color: #325832; 
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.delete-update-button:hover {
+  background-color: #45a049;
+}
+
 .item-card {
   display: flex;
   flex-direction: column;
@@ -105,10 +122,18 @@ h1 {
   padding-right: 10%;
 }
 
+.item-details b {
+  padding-right: 3px;
+}
 
 
 .item-image {
   flex: 1 0 35%;
+}
+
+.item-image img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
 .nav-menu {
@@ -129,6 +154,7 @@ h1 {
 .quantity-and-price {
   display: flex;
   gap: 10px;
+  font-weight: 600;
 }
 .side-nav {
   grid-area: side-nav;
