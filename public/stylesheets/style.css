@@ -26,6 +26,7 @@ body {
     "side-nav main";
   background-color: #e9f5db;
   color: #325832;
+  box-sizing: border-box;
 }
 
 a {
@@ -146,6 +147,23 @@ textarea#description {
   width: fit-content;
 }
 
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-title {
+  font-size: 4rem;
+  position: relative;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.home-title, .site-title {
+  font-family: MadimiOne-Regular, sans-serif;
+}
+
 .item-card {
   display: flex;
   flex-direction: column;
@@ -206,9 +224,42 @@ textarea#description {
   height: 100%;
 }
 
-.site-title {
-  font-family: MadimiOne-Regular, sans-serif;
+.site-credits {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  height: 6rem;
+  width: fit-content;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 10px;
+  background-color: #325832;
 }
+
+.site-credits a {
+  padding: 6px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  color: #000;
+  transition: all .3s ease-out .15s;
+}
+
+.site-credits a:hover {
+  scale: 1.08;
+  background-color: #9ef09e;
+}
+
+.site-credits img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+
 
 .stock-and-price {
   display: flex;
