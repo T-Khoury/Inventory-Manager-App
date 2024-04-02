@@ -10,8 +10,8 @@ function capitalize(string) {
 // Display list of all categories
 exports.category_list = asyncHandler(async (req, res, next) => {
     const categories = await Category.find().sort({ createdAt: -1 }).exec();
-    res.render("index", {
-        title: "Plant Manager Home",
+    res.render("category_list", {
+        title: "All Categories",
         categories: categories,
     })
 });

@@ -5,7 +5,7 @@ const category_controller = require("../controllers/categoryController");
 const item_controller = require("../controllers/itemController");
 
 
-router.get("/", category_controller.category_list);
+// router.get("/", category_controller.category_list);
 
 router.get("/item/create", item_controller.item_create_get);
 router.post("/item/create", item_controller.item_create_post);
