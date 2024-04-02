@@ -39,6 +39,17 @@ h1 {
   margin: 0;
 }
 
+select {
+  background-color: white;
+}
+
+textarea#description {
+  max-width: 20rem;
+  min-width: 8rem;
+  min-height: 8rem;
+  padding: 6px;
+}
+
 .card-details {
   display: flex;
   justify-content: space-between;
@@ -81,11 +92,31 @@ h1 {
   list-style: plants;
 }
 
+.create-item, .create-category {
+  padding: 2rem;
+}
+
+.create-item form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr) .75fr;
+  grid-template-areas: 
+  "name description"
+  "category description"
+  "price description"
+  "stock description"
+  "button button";
+  width: fit-content;
+  gap: 15px;
+  max-height: 50vh;
+}
+
+
 .default-image {
   width: 200px;
 }
 
-.delete-update-button {
+.delete-update-button, .submit-button {
   background-color: #325832; 
   border: none;
   color: white;
@@ -98,8 +129,21 @@ h1 {
   border-radius: 8px;
 }
 
-.delete-update-button:hover {
+.delete-update-button:hover, .submit-button:hover {
   background-color: #45a049;
+}
+
+.form-control {
+  width: 300px;
+  height: 2.3rem;
+  border: 1px solid #E5E7EB;
+  font-size: .9rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .item-card {
@@ -185,4 +229,44 @@ h1 {
 
 .stock img, .price img {
   scale: 0.75;
+}
+
+.submit-button {
+  grid-area: button;
+}
+
+#category-form {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#category-form .submit-button {
+  width: 100%;
+  height: 2.5rem;
+}
+
+#item-category-input {
+  grid-area: category;
+}
+
+#item-description-input {
+  grid-area: description;
+}
+
+#item-description-input textarea {
+  height: 300px;
+}
+
+#item-name-input {
+  grid-area: name;
+}
+
+#item-price-input {
+  grid-area: price;
+}
+
+#item-stock-input {
+  grid-area: stock;
 }
