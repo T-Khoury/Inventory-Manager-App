@@ -73,8 +73,10 @@ textarea#description {
 }
 
 .card-name {
-  font-size: .9rem;
+  font-size: 1rem;
   margin: 0;
+  font-family: MadimiOne-Regular, sans-serif;
+  font-weight: 300;
 }
 
 
@@ -206,7 +208,7 @@ textarea#description {
   list-style-type: none;
   inset: 0px;
   overflow: hidden auto;
-  
+  font-family: MadimiOne-Regular, sans-serif;
 }
 
 .nav-menu > li {
