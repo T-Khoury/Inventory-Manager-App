@@ -206,12 +206,20 @@ textarea#description {
   list-style-type: none;
   inset: 0px;
   overflow: hidden auto;
-  width: 184px;
+  
 }
 
 .nav-menu > li {
   margin: 1rem 0 1rem 10px;
   font-size: 1.1rem;
+}
+
+.nav-menu li:hover {
+  scale: 1.08;
+}
+
+.nav-menu a:hover {
+  color: #000;
 }
 .quantity-and-price {
   display: flex;
